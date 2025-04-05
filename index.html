@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barakallah Fii Umrik Nawal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'bounce': 'bounce 2s infinite',
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'confetti': 'confetti 5s ease-in-out forwards',
+                        'card-flip': 'flip 0.8s ease-in-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        bounce: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        confetti: {
+                            '0%': { 
+                                transform: 'translateY(0) rotate(0deg)',
+                                opacity: '1'
+                            },
+                            '100%': { 
+                                transform: 'translateY(100vh) rotate(720deg)',
+                                opacity: '0'
+                            }
+                        },
+                        flip: {
+                            '0%': { transform: 'rotateY(0deg)' },
+                            '50%': { transform: 'rotateY(90deg)' },
+                            '100%': { transform: 'rotateY(180deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .perspective-1000 {
+                perspective: 1000px;
+            }
+            .preserve-3d {
+                transform-style: preserve-3d;
+            }
+            .backface-hidden {
+                backface-visibility: hidden;
+            }
+            .rotate-y-180 {
+                transform: rotateY(180deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-primary-100 min-h-screen flex flex-col items-center justify-center overflow-x-hidden p-4">
+    <div class="container text-center relative max-w-md mx-auto">
+        <!-- Icon Ulang Tahun -->
+        <div class="text-6xl text-primary-600 mb-8 animate-bounce">
+            <i class="fas fa-birthday-cake"></i>
+        </div>
+        
+        <!-- Judul -->
+        <h1 class="text-4xl font-bold text-primary-800 mb-8 animate-fade-in">
+            Barakallah Fii Umrik <span class="text-primary-600">Nawal Syarifah Alawiyah</span>
+        </h1>
+        
+        <!-- Card Container -->
+        <div class="relative w-72 h-96 mx-auto mb-8 perspective-1000">
+            <div id="birthdayCard" class="relative w-full h-full preserve-3d transition-transform duration-800 shadow-xl rounded-2xl bg-white">
+                <!-- Card Depan -->
+                <div class="absolute w-full h-full backface-hidden flex flex-col justify-center items-center p-6 rounded-2xl bg-white">
+                    <div class="text-5xl text-primary-500 mb-6">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p class="text-gray-700 text-center mb-6">
+                        Di hari spesialmu ini, semoga Allah melimpahkan rahmat, berkah, dan kebahagiaan dalam setiap langkah kehidupanmu.
+                    </p>
+                </div>
+                
+                <!-- Card Belakang -->
+                <div class="absolute w-full h-full backface-hidden rotate-y-180 flex flex-col justify-center items-center p-6 rounded-2xl bg-white">
+                    <div class="text-5xl text-primary-500 mb-6">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 text-center mb-6">
+                        Semoga di usia yang baru ini, Nawal semakin diberi kesehatan, kecerdasan, dan ketakwaan. Tetap menjadi pribadi yang shalihah dan inspiratif!
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tombol Next -->
+        <button id="nextBtn" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50">
+            Ucapan Selanjutnya
+        </button>
+        
+        <!-- Footer -->
+        <div class="mt-8 text-primary-700 text-sm">
+            <p>Semoga hari ini menjadi salah satu hari terbaik dalam hidupmu!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.getElementById('birthdayCard');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentCard = 1;
+            const totalCards = 4;
+            
+            // Array pesan ucapan
+            const messages = [
+                {
+                    icon: 'fas fa-heart',
+                    message: 'Di hari spesialmu ini, semoga Allah melimpahkan rahmat, berkah, dan kebahagiaan dalam setiap langkah kehidupanmu.'
+                },
+                {
+                    icon: 'fas fa-star',
+                    message: 'Semoga di usia yang baru ini, Nawal semakin diberi kesehatan, kecerdasan, dan ketakwaan. Tetap menjadi pribadi yang shalihah dan inspiratif!'
+                },
+                {
+                    icon: 'fas fa-praying-hands',
+                    message: 'Barakallah fii umrik! Semoga tahun ini membawa lebih banyak kebaikan, kesuksesan, dan kedamaian dalam hidupmu. Aamiin.'
+                },
+                {
+                    icon: 'fas fa-smile-beam',
+                    message: 'Untuk Nawal yang luar biasa, semoga setiap hari di tahun baru ini dihiasi dengan senyuman, prestasi, dan keberkahan dari Allah SWT.'
+                }
+            ];
+            
+            // Fungsi untuk membuat confetti
+            function createConfetti() {
+                const colors = [
+                    'bg-primary-400', 
+                    'bg-primary-500', 
+                    'bg-primary-600',
+                    'bg-yellow-400',
+                    'bg-amber-400'
+                ];
+                
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = `fixed w-3 h-3 rounded-full ${colors[Math.floor(Math.random() * colors.length)]} animate-confetti`;
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    // Hapus confetti setelah animasi selesai
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Fungsi untuk mengubah card
+            function changeCard() {
+                card.classList.add('animate-card-flip');
+                
+                setTimeout(() => {
+                    currentCard = (currentCard % totalCards) + 1;
+                    const frontCard = card.children[0];
+                    const backCard = card.children[1];
+                    
+                    if (currentCard % 2 === 0) {
+                        frontCard.innerHTML = `
+                            <div class="text-5xl text-primary-500 mb-6">
+                                <i class="${messages[currentCard-1].icon}"></i>
+                            </div>
+                            <p class="text-gray-700 text-center mb-6">
+                                ${messages[currentCard-1].message}
+                            </p>
+                        `;
+                    } else {
+                        backCard.innerHTML = `
+                            <div class="text-5xl text-primary-500 mb-6">
+                                <i class="${messages[currentCard-1].icon}"></i>
+                            </div>
+                            <p class="text-gray-700 text-center mb-6">
+                                ${messages[currentCard-1].message}
+                            </p>
+                        `;
+                    }
+                    
+                    card.classList.remove('animate-card-flip');
+                    createConfetti();
+                }, 800);
+            }
+            
+            nextBtn.addEventListener('click', changeCard);
+            
+            // Buat confetti awal
+            createConfetti();
+        });
+    </script>
+</body>
+</html>
